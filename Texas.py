@@ -1,3 +1,4 @@
+from numpy.core.fromnumeric import take
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
@@ -69,12 +70,18 @@ for i in range(1, len(day_confirm_data)):
 #fft
 def fftFilter(data):
     fft_new_data = fft.fft(data)
-    fft_new_data1 = abs(fft_new_data)/(len(new_data) / 2)
+    fft_new_data1 = abs(fft_new_data)
     fft_new_data2 = fft_new_data1[range(len(fft_new_data1) // 2)]
-    freq = fft.fftfreq(len(fft_new_data), d = 1)
+    freq = fft.fftfreq(len(fft_new_data))
+    fft_pic_data = list(zip(freq, fft_new_data1))
+    fft_pic_data.sort(key=takeFirst)
 
     # threshold for freq
     threshold = 0.05
+
+    # plt the frequency
+    plt.plot([a[0] for a in fft_pic_data], [a[1] for a in fft_pic_data], "r")
+    plt.show()
 
     for i in range(len(freq)):
         if freq[i] > threshold or freq[i] < -threshold:
