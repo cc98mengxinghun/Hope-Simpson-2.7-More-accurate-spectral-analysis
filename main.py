@@ -51,7 +51,6 @@ for i in range(1, len(day_confirm_data)):
     confirms.append(day_confirm_data[i][1])
     new_confirms.append(day_confirm_data[i][1]- day_confirm_data[i-1][1])
 
-
 # plot original picture
 # plt.plot_date(days, new_confirms, "r")
 # plt.show()
@@ -59,11 +58,40 @@ for i in range(1, len(day_confirm_data)):
 
 #fft
 fft_new_confirms = fft.fft(new_confirms)
-fft_new_confirms = fft.fftshift(fft_new_confirms)
 fft_new_confirms1 = abs(fft_new_confirms)/(len(new_confirms) / 2)
 fft_new_confirms2 = fft_new_confirms1[range(len(fft_new_confirms1) // 2)]
-xf = np.arange(len(fft_new_confirms2))
+freq = fft.fftfreq(len(fft_new_confirms), d = 1)
+
+# threshold for freq
+threshold = 0.05
+
+for i in range(len(freq)):
+    if freq[i] > threshold or freq[i] < -threshold:
+        fft_new_confirms[i] = 0
+
+# ifft get the value
+ifft_new_confirms = fft.ifft(fft_new_confirms).real
+plt.xlabel('Date')
+plt.plot_date(days, new_confirms, "b", label="original")
+plt.plot_date(days, ifft_new_confirms, "r", label="afterFFT")
+plt.legend()
+plt.show()
 
 # plot fft picture
-plt.plot(xf, fft_new_confirms2, "b")
-plt.show()
+# plt.plot(freq, fft_new_confirms, "b")
+# plt.show()
+
+
+# save data to csv
+new_data = {}
+str_date = []
+for i in range(len(days)):
+    str_date.append(days[i].strftime('%Y-%m-%d'))
+
+new_data["date"] = str_date
+new_data["total_confirmed"] = confirms
+new_data["new_confirmed"] = new_confirms
+new_data["new_confirmed_after_fft"] = ifft_new_confirms
+
+new_csv = pd.DataFrame(new_data)
+new_csv.to_csv("./mydata/myresult.csv")
