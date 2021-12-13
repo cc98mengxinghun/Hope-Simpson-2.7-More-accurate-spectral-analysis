@@ -111,5 +111,4 @@ new_data["new_death_after_fft"] = fftFilter(new_death)
 new_data["total_recovered"] = recovered
 
 new_csv = pd.DataFrame(new_data)
-new_csv.to_csv("./mydata/Texas.csv")
 new_csv.to_csv("./mydata/US.csv")
