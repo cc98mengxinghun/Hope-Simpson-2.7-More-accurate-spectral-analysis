@@ -1,4 +1,3 @@
-from numpy.core.fromnumeric import take
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
@@ -9,8 +8,8 @@ from scipy import fft
 dirPath ="./COVID-19/csse_covid_19_data/csse_covid_19_daily_reports_us"
 
 def get_data(state_name, dirPath):
-    days = []
     confirms = []
+    days = []
     deaths = []
     recovered = []
     files = os.listdir(dirPath)
@@ -19,9 +18,10 @@ def get_data(state_name, dirPath):
             dayData= pd.read_csv(dirPath + '/' + file).set_index("Province_State")
             dayData = dayData.fillna(0)
             days.append(datetime.datetime.strptime(dayData.loc[state_name].Last_Update.split(" ")[0], '%Y-%m-%d'))
-            confirms.append(dayData.loc[state_name].Confirmed)
-            deaths.append(dayData.loc[state_name].Deaths)
-            recovered.append(dayData.loc[state_name].Recovered)
+            confirms.append(dayData.Confirmed.sum())
+            deaths.append(dayData.Deaths.sum())
+            recovered.append(dayData.Deaths.sum())
+
     res = {}
     res["days"] = days
     res["confirms"] = confirms
@@ -116,5 +116,7 @@ new_data["new_deaths"] = new_death
 new_data["new_death_after_fft"] = fftFilter(new_death)
 new_data["total_recovered"] = recovered
 
+
+
 new_csv = pd.DataFrame(new_data)
-new_csv.to_csv("./mydata/Texas.csv")
+new_csv.to_csv("./mydata/US.csv")
