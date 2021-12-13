@@ -8,24 +8,18 @@ from scipy import fft
 dirPath ="./COVID-19/csse_covid_19_data/csse_covid_19_daily_reports_us"
 
 def get_data(state_name, dirPath):
-    days = []
     confirms = []
-    Deaths = []
-    recovered = []
+    days = []
     files = os.listdir(dirPath)
     for file in files:
         if not os.path.isdir(dirPath + '/' + file) and file != "README.md":
             dayData= pd.read_csv(dirPath + '/' + file).set_index("Province_State")
             dayData = dayData.fillna(0)
             days.append(datetime.datetime.strptime(dayData.loc[state_name].Last_Update.split(" ")[0], '%Y-%m-%d'))
-            confirms.append(dayData.loc[state_name].Confirmed)
-            Deaths.append(dayData.loc[state_name].Deaths)
-            recovered.append(dayData.loc[state_name].Recovered)
+            confirms.append(dayData.Confirmed.sum())
     res = {}
     res["days"] = days
     res["confirms"] = confirms
-    res["Deaths"] = Deaths
-    res["recovered"] = recovered
     return res
 
 data = get_data("Texas", dirPath)
@@ -94,4 +88,4 @@ new_data["new_confirmed"] = new_confirms
 new_data["new_confirmed_after_fft"] = ifft_new_confirms
 
 new_csv = pd.DataFrame(new_data)
-new_csv.to_csv("./mydata/myresult.csv")
+new_csv.to_csv("./mydata/US.csv")
