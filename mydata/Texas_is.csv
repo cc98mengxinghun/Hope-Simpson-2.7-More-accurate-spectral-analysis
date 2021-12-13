@@ -1,4 +1,4 @@
-,date,total_confirmed,new_confirmed,new_confirmed_after_interp_spline,total_deaths,new_deaths,new_death_after_convolve,total_recovered
+,date,total_confirmed,new_confirmed,new_confirmed_after_interp_spline,total_deaths,new_deaths,new_death_after_interp_spline,total_recovered
 0,2020-04-13,14328,548,548.0,337,31,31.0,2269.0
 1,2020-04-30,27542,1036,1036.0,803,39,39.0,12507.0
 2,2020-05-16,45891,1190,1190.0,1356,47,46.99999999999999,25454.0
