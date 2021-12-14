@@ -1,0 +1,40 @@
+#map
+{
+	height: 800px;
+    line-height: 800px;
+	width: 100%;
+    top: 100px;
+}
+
+#charts
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.chart
+{
+    width: 100%;
+    height:600px;
+    margin:0 auto;
+    flex:1
+}
+
+.button 
+{
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+#upload_input
+{
+    position: absolute;
+    bottom: 0;
+}

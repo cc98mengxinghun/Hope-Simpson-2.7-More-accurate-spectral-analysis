@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Fan Wu">
+    <title>Spectral Analysis</title>
+    <script src="index.js"></script>
+    <script src="echarts.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+</head>
+<body>
+    
+    
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=&v=weekly&channel=2"
+      async
+    ></script>
+    <button class="button" onclick="showMap()">Map</button>
+    <button class="button" onclick="showTexasCharts()">Texas</button>
+    <button class="button" onclick="showUSCharts()">US</button>
+    <button class="button" onclick="showTexasIsCharts()">Texas IS</button>
+    <button class="button" onclick="showUSIsCharts()">US IS</button>
+    <div id="charts">
+    	<div id="texasConfirm" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="texasDeath" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="usConfirm"  style="width: 100%;height:600px;margin:0 auto;flex:1;"></div>
+    	<div id="usDeath" style="width: 100%;height:600px;margin:0 auto;flex:1;"></div>
+    	<div id="texasConfirmIs" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="texasDeathIs" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="usConfirmIs" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="usDeathIs" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="usConfirmIs" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+    	<div id="usDeathIs" style="width: 100%;height:600px;margin:0 auto;flex:1"></div>
+	</div>
+	<input id="upload_input"  type="file" multiple="multiple" accept=".csv" onchange="onUpload()" />
+</body>
+</html>
